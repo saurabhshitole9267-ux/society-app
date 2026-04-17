@@ -21,8 +21,12 @@ namespace SocietyAPI.Controllers
         [HttpGet]
         public IActionResult GetOwners()
         {
-            var owners = _context.Owners.ToList();
-            return Ok(owners);
+            var owners = new List<object>
+{
+    new { ownerId = 1, name = "Demo User", flatNumber = "101", phone = "1234567890", email = "demo@gmail.com" }
+};
+
+return Ok(owners);
         }
 
         [HttpPost]
