@@ -7,25 +7,26 @@ function Login() {
 
   const login = async () => {
   try {
-    const res = await api.post(
-      `/Auth/login?username=${username}&password=${password}`
-    );
+    const res = await api.post("/auth/login", {
+      username,
+      password
+    });
 
     console.log("RESPONSE:", res.data);
 
-    const token = res.data.token || res.data;
-
-    console.log("TOKEN:", token); // 👈 IMPORTANT
+    const token = res.data.token;
 
     localStorage.setItem("token", token);
 
     alert("Login Success");
+
     window.location.reload();
 
   } catch (err) {
     console.log("ERROR:", err.response?.data || err.message);
     alert("Login Failed");
   }
+
 };
 
   return (
