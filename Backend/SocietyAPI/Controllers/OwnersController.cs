@@ -1,17 +1,5 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SocietyAPI.Data;
-using SocietyAPI.Models;
-using System.Linq;
-
-namespace SocietyAPI.Controllers
-{
-    [ApiController]
-    [Route("api/[controller]")]
-    public class OwnersController : ControllerBase
-    
-    {
-        using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace SocietyAPI.Controllers
 {
@@ -31,52 +19,3 @@ namespace SocietyAPI.Controllers
         }
     }
 }
-        }
-
-        [HttpPost]
-[Consumes("application/json")]
-public IActionResult AddOwner([FromBody] Owner owner)
-{
-    if (owner == null)
-    {
-        return BadRequest();
-    }
-
-    _context.Owners.Add(owner);
-    _context.SaveChanges();
-
-    return Ok(owner);
-}
-[HttpDelete("{id}")]
-public IActionResult DeleteOwner(int id)
-{
-    var owner = _context.Owners.Find(id);
-
-    if (owner == null)
-        return NotFound();
-
-    _context.Owners.Remove(owner);
-    _context.SaveChanges();
-
-    return Ok("Deleted");
-}
-[HttpPut("{id}")]
-public IActionResult UpdateOwner(int id, Owner updatedOwner)
-{
-    var owner = _context.Owners.Find(id);
-
-    if (owner == null)
-        return NotFound();
-
-    owner.Name = updatedOwner.Name;
-    owner.FlatNumber = updatedOwner.FlatNumber;
-    owner.Phone = updatedOwner.Phone;
-    owner.Email = updatedOwner.Email;
-
-    _context.SaveChanges();
-
-    return Ok(owner);
-}
-        }
-    
-
