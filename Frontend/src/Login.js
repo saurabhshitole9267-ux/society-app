@@ -1,9 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import api from "./api";   // ✅ important
 
 function Login() {
   const [username, setUsername] = useState("");   // ✅ defined
   const [password, setPassword] = useState("");   // ✅ defined
+  const navigate = useNavigate();
 
   const login = async () => {
   try {
@@ -12,18 +14,13 @@ function Login() {
       password
     });
 
-    console.log("RESPONSE:", res.data);
-
-    const token = res.data.token;
-
-    localStorage.setItem("token", token);
+    localStorage.setItem("token", res.data.token);
 
     alert("Login Success");
 
-    window.location.reload();
+    navigate("/owners"); // ✅ redirect
 
   } catch (err) {
-    console.log("ERROR:", err.response?.data || err.message);
     alert("Login Failed");
   }
 

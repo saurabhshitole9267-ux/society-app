@@ -4,6 +4,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Owners() {
+const logout = () => {
+  localStorage.removeItem("token");
+  window.location.href = "/";
+};
+
   const [owners, setOwners] = useState([]);
 
   const [name, setName] = useState("");
@@ -207,7 +212,8 @@ function Owners() {
             >
               Update
             </button>
-
+            <button onClick={logout}>Logout</button>
+            
             <button
               onClick={() => setShowModal(false)}
               style={{
