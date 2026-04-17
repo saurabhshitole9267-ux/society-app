@@ -41,12 +41,20 @@ namespace SocietyAPI.Controllers
 
         // LOGIN
         [HttpPost("login")]
-        public async Task<IActionResult> Login(string username, string password)
+public IActionResult Login([FromBody] LoginModel model)
+{
+    // TEMP LOGIN (NO DB)
+    if (model.Username == "admin" && model.Password == "123")
+    {
+        return Ok(new
         {
-            var user = await _userManager.FindByNameAsync(username);
+            token = "dummy-token",
+            role = "admin"
+        });
+    }
 
-            if (user == null || !await _userManager.CheckPasswordAsync(user, password))
-                return Unauthorized();
+    return Unauthorized("Invalid credentials");
+}
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
